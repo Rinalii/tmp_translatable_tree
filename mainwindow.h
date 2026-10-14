@@ -3,8 +3,7 @@
 #include <QMainWindow>
 #include "translations.h"
 
-class QStandardItemModel;
-class QStandardItem;
+class TranslatableItemModel;
 class QTreeView;
 class QPushButton;
 
@@ -18,12 +17,10 @@ private slots:
     void slotSwitchLanguage();
 
 private:
-    void BuildTree();
-    void TranslateKeyItem(QStandardItem *item);
-    void Translate();
+    void UpdateButtonText();
 
     QTreeView *view_ = nullptr;
-    QStandardItemModel *model_ = nullptr;
+    TranslatableItemModel *model_ = nullptr;
     QPushButton *switch_lang_btn_ = nullptr;
     Lang lang_ = Lang::Ru;
 };
