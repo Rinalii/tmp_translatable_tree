@@ -7,11 +7,23 @@
 #include <QVBoxLayout>
 #include <QWidget>
 #include <QHeaderView>
+#include <QMessageBox>
 
 #include "translatableitemmodel.h"
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-    model_ = new TranslatableItemModel(this);
+
+    if (!provider_.Load(Lang::Ru, ":/data/ru.json") ||
+        !provider_.Load(Lang::En, ":/data/en.json")) {
+        QMessageBox::critical(this, "Error",
+                              "Не удалось загрузить словари переводов.");
+    }
+
+    model_ = new TranslatableItemModel(provider_, this);
+    if (!model_->LoadFromJson(":/data/data.json")) {
+        QMessageBox::critical(this, "Error",
+                              "Не удалось загрузить data.json.");
+    }
 
     view_ = new QTreeView(this);
     view_->setModel(model_);

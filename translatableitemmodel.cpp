@@ -1,10 +1,13 @@
 #include "translatableitemmodel.h"
 #include "itemroles.h"
+#include "itranslationprovider.h"
+#include "treeloader.h"
 
-TranslatableItemModel::TranslatableItemModel(QObject *parent)
-    : QStandardItemModel(parent) {
+TranslatableItemModel::TranslatableItemModel(ITranslationProvider &provider,
+                                             QObject *parent)
+    : QStandardItemModel(parent)
+    , provider_(provider) {
     setColumnCount(3);
-    BuildTree();
     Translate();
 }
 
@@ -16,6 +19,14 @@ void TranslatableItemModel::SetLanguage(Lang lang) {
 
 Lang TranslatableItemModel::GetLanguage() const {
     return lang_;
+}
+
+bool TranslatableItemModel::LoadFromJson(const QString &path) {
+    const bool ok = TreeLoader::LoadInto(this, path);
+    if (ok) {
+        Translate();
+    }
+    return ok;
 }
 
 void TranslatableItemModel::BuildTree() {
@@ -64,7 +75,7 @@ void TranslatableItemModel::TranslateKeyItem(QStandardItem *item) {
     const QString key = item->data(role(ItemRoles::KeyRole)).toString();
 
     if (!key.isEmpty()) {
-        item->setText(tr_(key, lang_));
+        item->setText(provider_.Translate(key, lang_));
     }
 
     for (int r = 0; r < item->rowCount(); ++r) {
@@ -76,9 +87,9 @@ void TranslatableItemModel::TranslateKeyItem(QStandardItem *item) {
 
 void TranslatableItemModel::Translate() {
     // заголовки колонок
-    setHeaderData(0, Qt::Horizontal, tr_("col_param", lang_));
-    setHeaderData(1, Qt::Horizontal, tr_("col_pass_val",  lang_));
-    setHeaderData(2, Qt::Horizontal, tr_("col_val2",  lang_));
+    setHeaderData(0, Qt::Horizontal, provider_.Translate("col_param", lang_));
+    setHeaderData(1, Qt::Horizontal, provider_.Translate("col_pass_val",  lang_));
+    setHeaderData(2, Qt::Horizontal, provider_.Translate("col_val2",  lang_));
 
     for (int r = 0; r < rowCount(); ++r) {
         for (int c = 0; c < columnCount(); ++c) {

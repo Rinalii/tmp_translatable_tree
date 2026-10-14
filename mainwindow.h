@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
-#include "translations.h"
+#include "jsontranslationprovider.h"
 
 class TranslatableItemModel;
 class QTreeView;
@@ -21,6 +21,7 @@ private:
 
     QTreeView *view_ = nullptr;
     TranslatableItemModel *model_ = nullptr;
+    JsonTranslationProvider provider_;
     QPushButton *switch_lang_btn_ = nullptr;
     Lang lang_ = Lang::Ru;
 };

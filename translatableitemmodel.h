@@ -2,15 +2,19 @@
 #define TRANSLATABLEITEMMODEL_H
 
 #include <QStandardItemModel>
-#include "translations.h"
+#include "itranslationprovider.h"
 
 class TranslatableItemModel : public QStandardItemModel {
     Q_OBJECT
 public:
-    TranslatableItemModel(QObject *parent = nullptr);
+    explicit TranslatableItemModel(ITranslationProvider &provider,
+                                   QObject *parent = nullptr);
 
     void SetLanguage(Lang lang);
     Lang GetLanguage() const;
+
+    // Загрузить данные из JSON-файла (структура дерева).
+    bool LoadFromJson(const QString &path);
 
 private:
     void BuildTree();
@@ -18,6 +22,7 @@ private:
     void TranslateKeyItem(QStandardItem *item);
     void Translate();
 
+    ITranslationProvider &provider_;
     Lang lang_ = Lang::Ru;
 };
 
