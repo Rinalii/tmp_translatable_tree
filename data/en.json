@@ -1,0 +1,14 @@
+{
+  "col_param": "Parameter",
+  "col_pass_val": "Passed values",
+  "col_val2": "Values",
+
+  "subaddress": "Subaddress",
+  "roll": "Object roll",
+  "pitch": "Pitch",
+  "heading": "Heading",
+  "validity": "Data validity flags",
+  "reserve": "[0-12] Reserve",
+  "heading_ok": "[13] Heading validity",
+  "pitch_ok": "[14] Pitch validity"
+}

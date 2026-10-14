@@ -1,0 +1,24 @@
+{
+  "nodes": [
+    {
+      "key": "subaddress",
+      "pass_val": "",
+      "value": "",
+      "children": [
+        { "key": "roll",    "pass_val": "0x0", "value": "0.00'" },
+        { "key": "pitch",   "pass_val": "0x0", "value": "0.00'" },
+        { "key": "heading", "pass_val": "0x0", "value": "0.00'" },
+        {
+          "key": "validity",
+          "pass_val": "0x0",
+          "value": "",
+          "children": [
+            { "key": "reserve",    "pass_val": "0x0", "value": ""  },
+            { "key": "heading_ok", "pass_val": "",    "value": "0" },
+            { "key": "pitch_ok",   "pass_val": "",    "value": "0" }
+          ]
+        }
+      ]
+    }
+  ]
+}
