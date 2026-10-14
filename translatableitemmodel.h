@@ -14,7 +14,7 @@ public:
 
 private:
     void BuildTree();
-    // обновляем только колонку с ключами
+    // Рекурсивно обновляет текст всех ячеек, у которых задан KeyRole
     void TranslateKeyItem(QStandardItem *item);
     void Translate();
 

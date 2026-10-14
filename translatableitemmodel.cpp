@@ -1,4 +1,5 @@
 #include "translatableitemmodel.h"
+#include "itemroles.h"
 
 TranslatableItemModel::TranslatableItemModel(QObject *parent)
     : QStandardItemModel(parent) {
@@ -25,9 +26,17 @@ void TranslatableItemModel::BuildTree() {
                        const QString &v1,
                        const QString &v2) -> QList<QStandardItem *> {
         auto *c0 = new QStandardItem;
-        c0->setData(key, Qt::UserRole);
+        if (!key.isEmpty()) {
+            c0->setData(key, role(ItemRoles::KeyRole));
+        }
         auto *c1 = new QStandardItem(v1);
         auto *c2 = new QStandardItem(v2);
+
+        // «Сырые» значения тоже сохраняем в ValueRole — пригодится,
+        // если позже захочется отделить отображение от данных.
+        c1->setData(v1, role(ItemRoles::ValueRole));
+        c2->setData(v2, role(ItemRoles::ValueRole));
+
         return {c0, c1, c2};
     };
 
@@ -51,14 +60,16 @@ void TranslatableItemModel::BuildTree() {
 
 void TranslatableItemModel::TranslateKeyItem(QStandardItem *item) {
     if (!item) return;
-    const QString key = item->data(Qt::UserRole).toString();
+    // Переводим ячейку, только если у неё есть ключ.
+    const QString key = item->data(role(ItemRoles::KeyRole)).toString();
+
     if (!key.isEmpty()) {
         item->setText(tr_(key, lang_));
     }
 
     for (int r = 0; r < item->rowCount(); ++r) {
-        if (auto *child = item->child(r, 0)) {
-            TranslateKeyItem(child);
+        for (int c = 0; c < columnCount(); ++c) {
+            TranslateKeyItem(item->child(r, c));
         }
     }
 }
@@ -70,6 +81,8 @@ void TranslatableItemModel::Translate() {
     setHeaderData(2, Qt::Horizontal, tr_("col_val2",  lang_));
 
     for (int r = 0; r < rowCount(); ++r) {
-        TranslateKeyItem(item(r, 0));
+        for (int c = 0; c < columnCount(); ++c) {
+            TranslateKeyItem(item(r, c));
+        }
     }
 }
