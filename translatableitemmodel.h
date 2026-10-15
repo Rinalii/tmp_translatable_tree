@@ -18,7 +18,6 @@ public:
     bool LoadFromJson(const QString &path);
 
 private:
-    void BuildTree();
     // Рекурсивно обновляет текст всех ячеек, у которых задан KeyRole
     void TranslateKeyItem(QStandardItem *item);
     void Translate();

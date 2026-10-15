@@ -1,6 +1,5 @@
 #include "qttranslationprovider.h"
 
-#include <QCoreApplication>
 #include <QFileInfo>
 #include <QTranslator>
 
@@ -9,12 +8,7 @@ constexpr const char *k_context = "Tree"; // контекст, совпадаю�
 }
 
 QtTranslationProvider::~QtTranslationProvider() {
-    for (QTranslator *t : translators_) {
-        if (t) {
-            QCoreApplication::removeTranslator(t);
-            delete t;
-        }
-    }
+    qDeleteAll(translators_);
     translators_.clear();
 }
 
@@ -29,15 +23,9 @@ bool QtTranslationProvider::Load(Lang lang, const QString &path) {
         return false;
     }
 
-    if (!QCoreApplication::installTranslator(t)) {
-        delete t;
-        return false;
-    }
-
     const int lang_id = static_cast<int>(lang);
     auto it = translators_.find(lang_id);
     if (it != translators_.end()) { // удаляем устаревшую версию
-        QCoreApplication::removeTranslator(it.value());
         delete it.value();
     }
     translators_[lang_id] = t;

@@ -15,17 +15,14 @@ QList<QStandardItem *> BuildRow(const QJsonObject &node) {
     auto *c0 = new QStandardItem;
     const QString key = node.value("key").toString();
     if (!key.isEmpty()) {
-        c0->setData(key, role(ItemRoles::KeyRole));
+        c0->setData(key, KeyRole);
     }
 
     const QString v1 = node.value("pass_val").toString();
     const QString v2 = node.value("value").toString();
 
     auto *c1 = new QStandardItem(v1);
-    c1->setData(v1, role(ItemRoles::ValueRole));
-
     auto *c2 = new QStandardItem(v2);
-    c2->setData(v2, role(ItemRoles::ValueRole));
 
     const QJsonArray children = node.value("children").toArray();
     for (const QJsonValue &cv : children) {
