@@ -7,9 +7,10 @@
 class TranslatableItemModel : public QStandardItemModel {
     Q_OBJECT
 public:
-    explicit TranslatableItemModel(ITranslationProvider &provider,
+    explicit TranslatableItemModel(ITranslationProvider *provider,
                                    QObject *parent = nullptr);
 
+    void SetProvider(ITranslationProvider *provider);
     void SetLanguage(Lang lang);
     Lang GetLanguage() const;
 
@@ -22,7 +23,7 @@ private:
     void TranslateKeyItem(QStandardItem *item);
     void Translate();
 
-    ITranslationProvider &provider_;
+    ITranslationProvider *provider_ = nullptr;
     Lang lang_ = Lang::Ru;
 };
 
