@@ -8,9 +8,19 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 
+/**
+ * @file treeloader.cpp
+ * @brief Реализация @ref TreeLoader.
+ */
+
 namespace {
 
-// Рекурсивно строит строку (3 ячейки) и всех её потомков
+/**
+ * @brief Рекурсивно построить строку (3 ячейки) и всех её потомков
+ *
+ * @param node JSON-объект узла (см. описание формата в treeloader.h)
+ * @return Список из трёх QStandardItem: параметр, значение1, значение2
+ */
 QList<QStandardItem *> BuildRow(const QJsonObject &node) {
     auto *c0 = new QStandardItem;
     const QString key = node.value("key").toString();

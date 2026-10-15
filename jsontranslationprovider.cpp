@@ -4,6 +4,11 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+/**
+ * @file jsontranslationprovider.cpp
+ * @brief Реализация @ref JsonTranslationProvider
+ */
+
 bool JsonTranslationProvider::Load(Lang lang, const QString &path) {
     QFile f(path);
     if (!f.open(QIODevice::ReadOnly)) {

@@ -3,6 +3,11 @@
 #include "itranslationprovider.h"
 #include "treeloader.h"
 
+/**
+ * @file translatableitemmodel.cpp
+ * @brief Реализация @ref TranslatableItemModel
+ */
+
 TranslatableItemModel::TranslatableItemModel(ITranslationProvider *provider,
                                              QObject *parent)
     : QStandardItemModel(parent)

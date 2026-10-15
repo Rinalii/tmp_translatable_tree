@@ -11,6 +11,11 @@
 
 #include "translatableitemmodel.h"
 
+/**
+ * @file mainwindow.cpp
+ * @brief Реализация @ref MainWindow
+ */
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     if (!json_provider_.Load(Lang::Ru, ":/data/ru.json") ||

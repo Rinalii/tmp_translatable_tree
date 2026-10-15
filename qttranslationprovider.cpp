@@ -3,8 +3,14 @@
 #include <QFileInfo>
 #include <QTranslator>
 
+/**
+ * @file qttranslationprovider.cpp
+ * @brief Реализация @ref QtTranslationProvider
+ */
+
 namespace {
-constexpr const char *k_context = "Tree"; // контекст, совпадающий с .ts
+/// Контекст, совпадающий с контекстом в .ts-файле
+constexpr const char *k_context = "Tree";
 }
 
 QtTranslationProvider::~QtTranslationProvider() {
