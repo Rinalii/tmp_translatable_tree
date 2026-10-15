@@ -3,5 +3,9 @@
         <file>data/data.json</file>
         <file>data/en.json</file>
         <file>data/ru.json</file>
+        <file>translations/tree_en.ts</file>
+        <file>translations/tree_ru.ts</file>
+        <file>translations/tree_en.qm</file>
+        <file>translations/tree_ru.qm</file>
     </qresource>
 </RCC>
